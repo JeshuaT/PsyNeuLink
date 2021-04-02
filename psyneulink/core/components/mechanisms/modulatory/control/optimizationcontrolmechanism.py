@@ -245,15 +245,19 @@ Composition is assigned as the `evaluation_function <OptimizationControlMechanis
 OptimizationControlMechanism.  If the `model <OptimizationControlMechanism.model>` is not the Composition for
 which the OptimizationControlMechanism is the controller, then it must meet the following requirements:
 
-    * Its `evaluate <Composition.evaluate>` method must accept as its first three arguments, in order,
-      values that correspond in shape to  the `state_feature_values <OptimizationControlMechanism.state_feature_values>`,
-      `control_allocation <ControlMechanism.control_allocation>` and `num_estimates
-      <OptimizationControlMechanism.num_estimates>` attributes of the OptimizationControlMechanism, respectively.
+    * Its `evaluate <Composition.evaluate>` method must accept as its first three arguments, in order:
+      values that correspond in shape to  the `state_feature_values
+      <OptimizationControlMechanism.state_feature_values>`,
+      `control_allocation <ControlMechanism.control_allocation>` and
+      `num_estimates <OptimizationControlMechanism.num_estimates>`
+      attributes of the OptimizationControlMechanism, respectively.
     ..
-    * If it has an `adapt <Composition.adapt>` method, that must accept as its first three arguments, in order,
-      values that correspond to the shape of the `state_feature_values <OptimizationControlMechanism.state_feature_values>`,
-      `control_allocation <ControlMechanism.control_allocation>` and `net_outcome
-      <OptimizationControlMechanism.net_outcome>` attributes of the OptimizationControlMechanism. respectively.
+    * If it has an `adapt <Composition.adapt>` method, that must accept as its first three arguments, in order:
+      values that correspond to the shape of the `state_feature_values
+      <OptimizationControlMechanism.state_feature_values>`,
+      `control_allocation <ControlMechanism.control_allocation>` and
+      `net_outcome <OptimizationControlMechanism.net_outcome>`
+      attributes of the OptimizationControlMechanism, respectively.
 
 .. _OptimizationControlMechanism_Function:
 
