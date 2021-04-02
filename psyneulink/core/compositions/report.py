@@ -1208,11 +1208,11 @@ class Report:
             # Only deal with ReportOutput.FULL;  ReportOutput.TERSE is handled above under content='controller_start'
             if report_output in {ReportOutput.FULL, ReportOutput.USE_PREFS}:
 
-                features = [p.parameters.value.get(context).tolist() for p in node.input_ports if p.name != OUTCOME]
+                state = [p.parameters.value.get(context).tolist() for p in node.input_ports if p.name != OUTCOME]
                 outcome = node.input_ports[OUTCOME].parameters.value.get(context).tolist()
                 control_allocation = [r.tolist() for r in node.control_allocation]
 
-                ctlr_report = [f'[bold {controller_input_color}]{self._padding_indent_str}features:[/] {features}'
+                ctlr_report = [f'[bold {controller_input_color}]{self._padding_indent_str}state:[/] {state}'
                                f'\n[bold {controller_input_color}]{self._padding_indent_str}outcome:[/] {outcome}']
                 if self._report_simulations is ReportSimulations.ON:
                     ctlr_report.extend(self.output_reports[output_report_owner][SIMULATION][report_num].run_report)

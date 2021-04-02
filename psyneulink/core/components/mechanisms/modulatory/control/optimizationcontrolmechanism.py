@@ -59,9 +59,9 @@ COMMENT
 
 .. _OptimizationControlMechanism_modelresentation_Types:
 
-**Agent Representation and Types of Optimization**
+**Model Representation and Types of Optimization**
 
-The defining characteristic of an OptimizationControlMechanism is its `agent representation
+The defining characteristic of an OptimizationControlMechanism is its `model
 <OptimizationControlMechanism_model>`, that is used to determine the `net_outcome <ControlMechanism.net_outcome>
 for a given `state <OptimizationControlMechanism_State>` and find the `control_allocation
 <ControlMechanism.control_allocation>` that optimizes this.  The `model <OptimizationControlMechanism.model>`
@@ -74,9 +74,19 @@ corresponds closely to the distinction between *model-based* and *model-free* op
 
 .. _OptimizationControlMechanism_Model_Free:
 
-*Model-Free Optimization*
+*"Model-Free" Optimization*
 
-This is achieved by assigning as the `model  <OptimizationControlMechanism.model>` a Composition other than the
+.. note::
+   The term "model-free" is used here, but placed in "apology quotes," to reflect the fact that, while this term is
+   used widely (e.g., in machine learning and cognitive science) to distinguish it from "model-based" forms of
+   processing, "model-free" processing nevertheless relies on *some* form of model -- albeit a much simpler one --
+   for learning, planning and decision making.  Here, the distinction is between the use of the most complete form
+   of model (referred to as "model-based"), which the agent (i.e., `Composition` *itself*) serves as the "model,"
+   and simpler forms of models that (can learn to) approximate the agent's behavior (e.g., reinforcement learning
+   algorithms or other forms of function approximation) that can be assigned as the OptimizationControlMechanism's
+   `model <OptimizationControlMechanism.model>`.
+
+This is implemented by assigning as the `model <OptimizationControlMechanism.model>` a Composition other than the
 one to which the OptimizationControlMechanism belongs (and for which it is the `controller <Composition.controller>`).
 In each `TRIAL <TimeScale.TRIAL>`, the `model <OptimizationControlMechanism.model>` is given the chance to
 adapt, by adjusting its parameters in order to improve its prediction of the `net_outcome
@@ -96,7 +106,7 @@ This is achieved by assigning as the `model  <OptimizationControlMechanism.model
 OptimizationControlMechanism belongs (and for which it is the `controller <Composition.controller>`). On each
 `TRIAL <TimeScale.TRIAL>`, that Composition itself is used to simulate processing on the upcoming trial, based on
 the current or (expected) `state_feature_values <OptimizationControlMechanism.state_feature_values>` for that trial,
-in order to find the <ControlMechanism.control_allocation>` that yields the best net_outcome
+in order to find the `control_allocation <ControlMechanism.control_allocation>` that yields the best `net_outcome
 <ControlMechanism.net_outcome>` for that trial.
 
 .. _OptimizationControlMechanism_Creation:
@@ -107,13 +117,13 @@ Creating an OptimizationControlMechanism
 An OptimizationControlMechanism is created in the same was as any `ControlMechanism <ControlMechanism>`.
 The following arguments of its constructor are specific to the OptimizationControlMechanism:
 
-* **state** -- takes the place of the standard **input_ports** argument in the constructor for a Mechanism`,
-  and specifies the values used by the OptimizationControlMechanism, together with a `control_allocation
+* **state** -- takes the place of the standard **input_ports** argument in the constructor for a Mechanism`, and
+  specifies the values used by the OptimizationControlMechanism, together with a `control_allocation
   <ControlMechanism.control_allocation>`, to calculate a `net_outcome <ControlMechanism.net_outcome>`.  For
-  `model-based optimzation <OptimizationControlMechanism_Model_Based>` these are also used as the inputs to the
+  `model-based optimization <OptimizationControlMechanism_Model_Based>` these are also used as the inputs to the
   Composition (i.e., `model <OptimizationControlMechanism.model>`) when it's `evaluate <Composition.evaluate>`
-  method is called (see `OptimizationControlMechanism_State_Features` below).  Features can be specified using any of the
-  following, singly or combined in a list:
+  method is called (see `OptimizationControlMechanism_State_Features` below).  Features can be specified using
+  any of the following, singly or combined in a list:
 
   * *InputPort specification* -- this can be any form of `InputPort specification <InputPort_Specification>`
     that resolves to an OutputPort from which the InputPort receives a Projection;  the `value
@@ -230,10 +240,10 @@ of `state_feature_values <OptimizationControlMechanism.state_feature_values>` (s
 
 .. _OptimizationControlMechanism_model:
 
-*Agent Representation*
+*Model Representation*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The defining feature of an OptimizationControlMechanism is its agent representation, specified in the **model**
+The defining feature of an OptimizationControlMechanism is its model representation, specified in the **model**
 argument of its constructor and assigned to its `model <OptimizationControlMechanism.model>` attribute.  This
 designates a representation of the `Composition` (or parts of one) that the OptimizationControlMechanism controls, that
 is used to evaluate sample `control_allocations <ControlMechanism.control_allocation>` in order to find the one that
@@ -1037,9 +1047,9 @@ class OptimizationControlMechanism(ControlMechanism):
             if self.defaults.search_statefulness:
                 self._tear_down_simulation(new_context)
 
-            # If results of the simulation shoudld be returned then, do so. Agent Rep Evaluate will
+            # If results of the simulation shoudld be returned then, do so. A Model's evaluate method will
             # return a tuple in this case where the first element is the outcome as usual and the
-            # results of composision run are the second element.
+            # results of composition run are the second element.
             if return_results:
                 return result[0], result[1]
             else:
