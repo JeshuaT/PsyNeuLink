@@ -112,7 +112,7 @@ The following arguments of its constructor are specific to the OptimizationContr
   <ControlMechanism.control_allocation>`, to calculate a `net_outcome <ControlMechanism.net_outcome>`.  For
   `model-based optimzation <OptimizationControlMechanism_Model_Based>` these are also used as the inputs to the
   Composition (i.e., `model <OptimizationControlMechanism.model>`) when it's `evaluate <Composition.evaluate>`
-  method is called (see `OptimizationControlMechanism_Features` below).  Features can be specified using any of the
+  method is called (see `OptimizationControlMechanism_State_Features` below).  Features can be specified using any of the
   following, singly or combined in a list:
 
   * *InputPort specification* -- this can be any form of `InputPort specification <InputPort_Specification>`
@@ -183,10 +183,10 @@ OptimizationControlMechanism's `model <OptimizationControlMechanism.model>`.
     <ControlMechanism.costs>` of the OptimizationControlMechanism's `control_signals <ControlMechanism.control_signals>`
     into account when calculating the `net_outcome` that it returns as its result.
 
-.. _OptimizationControlMechanism_Features:
+.. _OptimizationControlMechanism_State_Features:
 
-*Features*
-^^^^^^^^^^
+*State Features*
+^^^^^^^^^^^^^^^^
 
 In addition to its `primary InputPort <InputPort_Primary>` (which typically receives a projection from the
 *OUTCOME* OutputPort of the `objective_mechanism <ControlMechanism.objective_mechanism>`,
@@ -203,12 +203,12 @@ given `control_allocation <ControlMechanism.control_allocation>`.  For Optimizat
 when it is executed to evaluate the `net_outcome <ControlMechanism.net_outcome>` for a given
 `control_allocation<ControlMechanism.control_allocation>`.
 
-Features can be of two types:
+State features can be of two types:
 
 * *Input Features* -- these are values received as input by other Mechanisms in the `Composition`. They are
   specified as `shadowed inputs <InputPort_Shadow_Inputs>` in the **state** argument of the
   OptimizationControlMechanism's constructor (see `OptimizationControlMechanism_Creation`).  An InputPort is
-  created on the OptimziationControlMechanism for each feature, that receives a `Projection` paralleling
+  created on the OptimizationControlMechanism for each feature, that receives a `Projection` paralleling
   the input to be shadowed.
 ..
 * *Output Features* -- these are the `value <OutputPort.value>` of an `OutputPort` of some other `Mechanism <Mechanism>`
@@ -225,8 +225,8 @@ The current `value <InputPort.value>` of the InputPorts for the state are listed
 ^^^^^^^
 
 The state of the Composition (or part of one) controlled by an OptimizationControlMechanism is defined by a combination
-of `state_feature_values <OptimizationControlMechanism.state_feature_values>` (see `above <OptimizationControlMechanism_Features>`)
-and a `control_allocation <ControlMechanism.control_allocation>`.
+of `state_feature_values <OptimizationControlMechanism.state_feature_values>` (see `above
+<OptimizationControlMechanism_State_Features>`) and a `control_allocation <ControlMechanism.control_allocation>`.
 
 .. _OptimizationControlMechanism_model:
 
@@ -251,7 +251,7 @@ which the OptimizationControlMechanism is the controller, then it must meet the 
       <OptimizationControlMechanism.num_estimates>` attributes of the OptimizationControlMechanism, respectively.
     ..
     * If it has an `adapt <Composition.adapt>` method, that must accept as its first three arguments, in order,
-      values that corresopnd to the shape of the `state_feature_values <OptimizationControlMechanism.state_feature_values>`,
+      values that correspond to the shape of the `state_feature_values <OptimizationControlMechanism.state_feature_values>`,
       `control_allocation <ControlMechanism.control_allocation>` and `net_outcome
       <OptimizationControlMechanism.net_outcome>` attributes of the OptimizationControlMechanism. respectively.
 
@@ -479,11 +479,11 @@ class OptimizationControlMechanism(ControlMechanism):
         specifies Components, the values of which are assigned to `state_feature_values
         <OptimizationControlMechanism.state_feature_values>` and used to predict `net_outcome
         <ControlMechanism.net_outcome>`. Any `InputPort specification <InputPort_Specification>`
-        can be used that resolves to an `OutputPort` that projects to the InputPort.
+        can be used that resolves to an `OutputPort` that projects to that InputPort.
 
     state_feature_function : Function or function : default None
-        specifies the `function <InputPort.function>` for the `InputPort` assigned to each `feature
-        <OptimizationControlMechanism_Features>`.
+        specifies the `function <InputPort.function>` for the `InputPort` assigned to each `state_feature_value
+        <OptimizationControlMechanism_State_Features>`.
 
     model : None  : default Composition to which the OptimizationControlMechanism is assigned
         specifies the `Composition` used by the `evalution_function <OptimizationControlMechanism.evaluation_function>`
@@ -529,8 +529,8 @@ class OptimizationControlMechanism(ControlMechanism):
     ----------
 
     state_feature_values : 2d array
-        the current value of each of the OptimizationControlMechanism's `state
-        <OptimizationControlMechanism_Features>` (each of which is a 1d array).
+        the current value of each item of the OptimizationControlMechanism's `state
+        <OptimizationControlMechanism_State_Features>` (each of which is a 1d array).
 
     model : Composition
         determines the `Composition` used by the `evalution_function <OptimizationControlMechanism.evaluation_function>`
