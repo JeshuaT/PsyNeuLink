@@ -53,7 +53,7 @@ comp.add_linear_processing_pathway(task_execution_pathway)
 
 ocm = pnl.OptimizationControlMechanism(features=[Input, Reward],
                                        feature_function=pnl.AdaptiveIntegrator(rate=0.5),
-                                       agent_rep=comp,
+                                       model=comp,
                                        # function=pnl.GaussianProcessOptimization,
                                        function=pnl.GridSearch,
                                        control_signals=[("drift_rate", Decision), ("threshold", Decision)],

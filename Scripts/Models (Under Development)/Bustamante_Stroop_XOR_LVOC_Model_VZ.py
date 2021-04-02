@@ -139,7 +139,7 @@ lvoc = pnl.OptimizationControlMechanism(
         function=objective_function
     ),
     # posterior weight distribution
-    agent_rep=pnl.RegressionCFA(
+    model=pnl.RegressionCFA(
         # update_weights=pnl.BayesGLM(mu_0=-0.17, sigma_0=0.11), #sigma_0=math.sqrt(0.11))
         update_weights=pnl.BayesGLM(mu_0=-0.17, sigma_0=0.0000000000000001), #sigma_0=math.sqrt(0.11))
         # update_weights=pnl.BayesGLM(mu_0=+0.17, sigma_0=0.11), #sigma_0=math.sqrt(0.11))
@@ -182,7 +182,7 @@ lvoc.set_log_conditions('value')
 # lvoc.set_log_conditions('features')
 # print("LVOC loggable: ", lvoc.loggable_items)
 # lvoc.set_log_conditions('variable')
-# lvoc.agent_rep.set_log_conditions('regression_weights')
+# lvoc.model.set_log_conditions('regression_weights')
 
 # lvoc.reportOutputPref=True
 
@@ -208,7 +208,7 @@ def adjust_reward():
 def print_weights():
     global trial_num
     print(trial_num)
-    print(lvoc.agent_rep.parameters.regression_weights.get())
+    print(lvoc.model.parameters.regression_weights.get())
     trial_num += 1
     # print("----------------ENDED TRIAL-------------------")
 

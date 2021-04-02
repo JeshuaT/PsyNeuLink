@@ -16,7 +16,7 @@ icomp.add_projection(pnl.MappingProjection(), sender=ib, receiver=ic)
 # set up inner comp controller and add to comp
 icomp.add_controller(
         pnl.OptimizationControlMechanism(
-                agent_rep=icomp,
+                model=icomp,
                 features=[ia.input_port, ib.input_port],
                 name="Controller",
                 objective_mechanism=pnl.ObjectiveMechanism(
@@ -42,7 +42,7 @@ ocomp.add_node(icomp)
 # add controller to outer comp
 ocomp.add_controller(
         pnl.OptimizationControlMechanism(
-                agent_rep=ocomp,
+                model=ocomp,
                 features=[ia.input_port, ib.input_port],
                 name="Controller",
                 objective_mechanism=pnl.ObjectiveMechanism(

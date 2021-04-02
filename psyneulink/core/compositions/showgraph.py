@@ -132,7 +132,7 @@ COMMENT
 | ...            name='Controller',                         |                                                          |
 | ...            monitor_for_control=[(pnl.MEAN, a)],       |                                                          |
 | ...            control_signals=(GAIN, c),                 |                                                          |
-| ...            agent_rep=comp                             |                                                          |
+| ...            model=comp                             |                                                          |
 | ...            )                                          |                                                          |
 | >>> comp.add_controller(ctlr)                             |                                                          |
 +-----------------------------------------------------------+----------------------------------------------------------+
@@ -201,7 +201,7 @@ from PIL import Image
 
 from psyneulink.core.components.component import Component
 from psyneulink.core.components.mechanisms.modulatory.control.controlmechanism import ControlMechanism
-from psyneulink.core.components.mechanisms.modulatory.control.optimizationcontrolmechanism import AGENT_REP
+from psyneulink.core.components.mechanisms.modulatory.control.optimizationcontrolmechanism import model
 from psyneulink.core.components.mechanisms.processing.compositioninterfacemechanism import CompositionInterfaceMechanism
 from psyneulink.core.components.mechanisms.processing.objectivemechanism import ObjectiveMechanism
 from psyneulink.core.components.ports.outputport import OutputPort
@@ -302,8 +302,8 @@ class ShowGraph():
         when **show_nested** is specified as False or a `Composition is nested <Composition_Nested>` below the
         level specified in a call to `show_graph <ShowGraph.show_graph>`.
 
-    agent_rep_shape : default 'egg'
-        specifies the shape in which the `agent_rep` of an `OptimizationControlMechanism` is displayed.
+    model_shape : default 'egg'
+        specifies the shape in which the `model` of an `OptimizationControlMechanism` is displayed.
 
     default_projection_arrow : keywrod : default 'normal'
          specifies the shape of the arrow used to display `MappingProjection`\\s.
@@ -383,7 +383,7 @@ class ShowGraph():
                  cim_shape = 'rectangle',
                  controller_shape = 'doubleoctagon',
                  composition_shape = 'rectangle',
-                 agent_rep_shape = 'egg',
+                 model_shape = 'egg',
                  # Projection shapes
                  default_projection_arrow = 'normal',
                  learning_projection_shape = 'diamond',
@@ -421,7 +421,7 @@ class ShowGraph():
         self.cim_shape = cim_shape
         self.composition_shape = composition_shape
         self.controller_shape = controller_shape
-        self.agent_rep_shape = agent_rep_shape
+        self.model_shape = model_shape
         # Projection shapes
         self.learning_projection_shape = learning_projection_shape
         self.control_projection_arrow =control_projection_arrow
@@ -455,7 +455,7 @@ class ShowGraph():
                    show_nested:tc.optional(tc.any(bool,int,dict,tc.enum(NESTED, INSET)))=NESTED,
                    show_nested_args:tc.optional(tc.any(bool,dict,tc.enum(ALL)))=ALL,
                    show_cim:bool=False,
-                   show_controller:tc.any(bool, tc.enum(AGENT_REP))=True,
+                   show_controller:tc.any(bool, tc.enum(model))=True,
                    show_learning:bool=False,
                    show_headers:bool=True,
                    show_types:bool=False,
@@ -543,11 +543,11 @@ class ShowGraph():
             <Composition.parameter_CIM>`, and `output_CIM <Composition.output_CIM>` `CompositionInterfaceMechanisms
             <CompositionInterfaceMechanism>` (CIMs).
 
-        show_controller :  bool or AGENT_REP : default True
+        show_controller :  bool or model : default True
             specifies whether or not to show the Composition's `controller <Composition.controller>` and associated
             `objective_mechanism <ControlMechanism.objective_mechanism>` if it has one.  If the controller is an
-            OptimizationControlMechanism and it has an `agent_rep <OptimizationControlMechanism>`, then specifying
-            *AGENT_REP* will also show that.  All control-related items are displayed in the color specified for
+            OptimizationControlMechanism and it has an `model <OptimizationControlMechanism>`, then specifying
+            *model* will also show that.  All control-related items are displayed in the color specified for
             **controller_color**.
 
         show_learning : bool or ALL : default False
@@ -1733,31 +1733,31 @@ class ShowGraph():
                     g.edge(sndr_proj_label, objmech_proj_label, label=edge_label,
                            color=proj_color, penwidth=proj_width)
 
-        # If controller has an agent_rep, assign its node and edges (not Projections per se)
-        if hasattr(controller, 'agent_rep') and controller.agent_rep and show_controller==AGENT_REP :
-            # get agent_rep
-            agent_rep = controller.agent_rep
+        # If controller has an model, assign its node and edges (not Projections per se)
+        if hasattr(controller, 'model') and controller.model and show_controller==model :
+            # get model
+            model = controller.model
             # controller is active, treat
             if controller in active_items:
                 if self.active_color == BOLD:
-                    agent_rep_color = self.controller_color
+                    model_color = self.controller_color
                 else:
-                    agent_rep_color = self.active_color
-                agent_rep_width = str(self.default_width + self.active_thicker_by)
+                    model_color = self.active_color
+                model_width = str(self.default_width + self.active_thicker_by)
                 composition.active_item_rendered = True
             else:
-                agent_rep_color = self.controller_color
-                agent_rep_width = str(self.default_width)
+                model_color = self.controller_color
+                model_width = str(self.default_width)
 
-            # agent_rep node
-            agent_rep_label = self._get_graph_node_label(composition, agent_rep, show_types, show_dimensions)
-            g.node(agent_rep_label,
-                    color=agent_rep_color, penwidth=agent_rep_width, shape=self.agent_rep_shape,
+            # model node
+            model_label = self._get_graph_node_label(composition, model, show_types, show_dimensions)
+            g.node(model_label,
+                    color=model_color, penwidth=model_width, shape=self.model_shape,
                     rank=self.control_rank)
 
-            # agent_rep <-> controller edges
-            g.edge(agent_rep_label, ctlr_label, color=agent_rep_color, penwidth=agent_rep_width)
-            g.edge(ctlr_label, agent_rep_label, color=agent_rep_color, penwidth=agent_rep_width)
+            # model <-> controller edges
+            g.edge(model_label, ctlr_label, color=model_color, penwidth=model_width)
+            g.edge(ctlr_label, model_label, color=model_color, penwidth=model_width)
 
         # get any other incoming edges to controller (i.e., other than from ObjectiveMechanism)
         senders = set()

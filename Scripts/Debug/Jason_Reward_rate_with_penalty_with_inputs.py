@@ -199,7 +199,7 @@ def get_stroop_model(unit_noise_std=.01, dec_noise_std=.1):
 
     model.add_nodes([reward_rate, punish_rate])
 
-    controller = pnl.OptimizationControlMechanism(agent_rep=model,
+    controller = pnl.OptimizationControlMechanism(model=model,
                                                   features=[inp_clr.input_port,
                                                             inp_wrd.input_port,
                                                             inp_task.input_port,

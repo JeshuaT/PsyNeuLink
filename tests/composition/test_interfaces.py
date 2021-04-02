@@ -525,7 +525,7 @@ class TestConnectCompositionsViaCIMS:
         # Outer Composition
         ocomp = Composition(name='ocomp', pathways=[icomp])
         ocm = OptimizationControlMechanism(name='ic',
-                                           agent_rep=ocomp,
+                                           model=ocomp,
                                            control_signals=[
                                                ControlSignal(projections=[(NOISE, ia)]),
                                                ControlSignal(projections=[(INTERCEPT, ia)]),
@@ -566,7 +566,7 @@ class TestConnectCompositionsViaCIMS:
         # Outer Composition
         ocomp = Composition(name='ocomp', pathways=[icomp])
         ocm = OptimizationControlMechanism(name='ocm',
-                                           agent_rep=ocomp,
+                                           model=ocomp,
                                            control_signals=[
                                                ControlSignal(projections=[(NOISE, ia)]),
                                                ControlSignal(projections=[(INTERCEPT, ia)]),

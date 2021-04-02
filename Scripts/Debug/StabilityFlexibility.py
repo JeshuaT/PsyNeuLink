@@ -169,7 +169,7 @@ objective_mech = pnl.ObjectiveMechanism(monitor = [inputLayer, stimulusInfo,
                                                            (pnl.PROBABILITY_LOWER_THRESHOLD, decisionMaker)],
                                                            function = computeAccuracy)
 
-meta_controller = pnl.OptimizationControlMechanism(agent_rep = stabilityFlexibility,
+meta_controller = pnl.OptimizationControlMechanism(model = stabilityFlexibility,
                                                    features = [inputLayer.input_port,stimulusInfo.input_port],
                                                    # features = {pnl.SHADOW_INPUTS: [inputLayer, stimulusInfo]},
                                                    # features = [(inputLayer, pnl.SHADOW_INPUTS),

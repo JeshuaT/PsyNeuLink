@@ -63,7 +63,7 @@ agent_comp.add_node(action_mech, required_roles=[NodeRole.OUTPUT])
 ocm = OptimizationControlMechanism(name='EVC',
                                    features=[trial_type_input_mech],
                                    # feature_function=FEATURE_FUNCTION,
-                                   agent_rep=RegressionCFA(
+                                   model=RegressionCFA(
                                            name='RegressionCFA',
                                            update_weights=BayesGLM(mu_0=0.5, sigma_0=0.1),
                                            prediction_terms=[PV.F, PV.C, PV.COST]

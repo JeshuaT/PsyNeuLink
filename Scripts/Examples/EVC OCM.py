@@ -30,7 +30,7 @@ task_execution_pathway = [Input, IDENTITY_MATRIX, Decision]
 comp.add_linear_processing_pathway(task_execution_pathway)
 
 comp.add_model_based_optimizer(optimizer=OptimizationControlMechanism(name='OCM',
-                                                                      agent_rep=comp,
+                                                                      model=comp,
                                                                       features=[Input.input_port, reward.input_port],
                                                                       feature_function=AdaptiveIntegrator(rate=0.5),
                                                                       objective_mechanism=ObjectiveMechanism(

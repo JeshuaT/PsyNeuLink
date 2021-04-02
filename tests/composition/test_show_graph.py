@@ -362,7 +362,7 @@ class TestControl:
         ocomp = Composition(name='ocomp', pathways=[[ob],[oa, icomp, oc, ctl_mech]])
         # ocomp.add_nodes(ob)
         ocm = OptimizationControlMechanism(name='ocm',
-                                           agent_rep=ocomp,
+                                           model=ocomp,
                                            control_signals=[
                                                ControlSignal(projections=[(NOISE, ia)]),
                                                ControlSignal(projections=[(INTERCEPT, ia)]),
@@ -414,7 +414,7 @@ class TestControl:
                                     control_signals=[ControlSignal(projections=[(SLOPE, ia)])])
         ocomp = Composition(name='ocomp', pathways=[[oa, midcomp, oc, ctl_mech], [ob]])
         ocm = OptimizationControlMechanism(name='ocm',
-                                           agent_rep=ocomp,
+                                           model=ocomp,
                                            control_signals=[
                                                ControlSignal(projections=[(NOISE, ia)]),
                                                ControlSignal(projections=[(INTERCEPT, ia)]),
@@ -462,7 +462,7 @@ class TestControl:
                                     control_signals=[ControlSignal(projections=[(SLOPE, ia)])])
         ocomp = Composition(name='ocomp', pathways=[[oa, icomp, oc, ctl_mech],[ob]])
         ocm = OptimizationControlMechanism(name='ocm',
-                                           agent_rep=ocomp,
+                                           model=ocomp,
                                            control_signals=[
                                                ControlSignal(projections=[(NOISE, ia)]),
                                                ControlSignal(projections=[(INTERCEPT, ia)]),

@@ -2375,7 +2375,7 @@ from psyneulink.core.components.functions.transferfunctions import Identity
 from psyneulink.core.components.mechanisms.mechanism import Mechanism_Base, MechanismError, MechanismList
 from psyneulink.core.components.mechanisms.modulatory.control.controlmechanism import ControlMechanism
 from psyneulink.core.components.mechanisms.modulatory.control.optimizationcontrolmechanism import \
-    OptimizationControlMechanism, AGENT_REP
+    OptimizationControlMechanism, model
 from psyneulink.core.components.mechanisms.modulatory.learning.learningmechanism import \
     LearningMechanism, ACTIVATION_INPUT_INDEX, ACTIVATION_OUTPUT_INDEX, ERROR_SIGNAL, ERROR_SIGNAL_INDEX
 from psyneulink.core.components.mechanisms.modulatory.modulatorymechanism import ModulatoryMechanism_Base
@@ -7042,10 +7042,10 @@ class Composition(Composition_Base, metaclass=ComponentsMeta):
 
         # Note:  initialization_status here pertains to controller's own initialization status
         #        (i.e., whether it has been fully instantiated); if not, presumably this is because it is an
-        #        OptimizationControlMechanism [OCM] for which the agent_rep has not yet been assigned
+        #        OptimizationControlMechanism [OCM] for which the model has not yet been assigned
         #        (e.g., was constructed in the controller argument of the Composition), in which case assign it here.
         if controller.initialization_status == ContextFlags.DEFERRED_INIT:
-            controller._init_args[AGENT_REP] = self
+            controller._init_args[model] = self
             controller._deferred_init(context=context)
 
         # Note:  initialization_status here pertains to controller's status w/in the Composition
@@ -9840,7 +9840,7 @@ class Composition(Composition_Base, metaclass=ComponentsMeta):
 
         return parse_params_dict(runtime_params)
 
-    def _after_agent_rep_execution(self, context=None):
+    def _after_model_execution(self, context=None):
         pass
 
     def _update_default_variable(self, *args, **kwargs):

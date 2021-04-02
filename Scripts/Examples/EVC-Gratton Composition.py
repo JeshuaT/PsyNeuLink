@@ -61,7 +61,7 @@ objective_mech = pnl.ObjectiveMechanism(function=pnl.LinearCombination(operation
                                                                  (Decision.output_ports[
                                                                       pnl.PROBABILITY_UPPER_THRESHOLD], 1, -1)])
 # Model Based OCM (formerly controller)
-evc_gratton.add_controller(controller=pnl.OptimizationControlMechanism(agent_rep=evc_gratton,
+evc_gratton.add_controller(controller=pnl.OptimizationControlMechanism(model=evc_gratton,
                                                                                  features=[target_stim.input_port,
                                                                                            flanker_stim.input_port,
                                                                                            reward.input_port],

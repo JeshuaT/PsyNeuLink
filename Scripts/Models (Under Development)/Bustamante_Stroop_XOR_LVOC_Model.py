@@ -104,7 +104,7 @@ lvoc = pnl.OptimizationControlMechanism(
         # monitored_output_ports=[task_decision, reward],
         function=objective_function
     ),
-    agent_rep=pnl.RegressionCFA(
+    model=pnl.RegressionCFA(
         update_weights=pnl.BayesGLM(mu_0=-0.17, sigma_0=9.0909), # -0.17, 9.0909 precision = 0.11; 1/p = v
         prediction_terms=[pnl.PV.FC, pnl.PV.COST]
     ),
@@ -130,7 +130,7 @@ lvoc = pnl.OptimizationControlMechanism(
 lvoc.set_log_conditions('value')
 # print(lvoc.loggable_items)
 # lvoc.set_log_conditions('variable')
-# lvoc.agent_rep.set_log_conditions('regression_weights')
+# lvoc.model.set_log_conditions('regression_weights')
 
 lvoc.reportOutputPref=True
 
@@ -147,7 +147,7 @@ c.add_node(lvoc)
     # }
 
 
-# print('PREDICTION WEIGHTS T1', lvoc.agent_rep.parameters.regression_weights.get(None))
+# print('PREDICTION WEIGHTS T1', lvoc.model.parameters.regression_weights.get(None))
 
 # for i in range(len(xor_dict)): # run on all 30 subjects
 for i in range(3): # testing for three subjects, 200 trials per subject
@@ -163,15 +163,15 @@ for i in range(3): # testing for three subjects, 200 trials per subject
 
     def print_weights():
         print("OUTCOME = ", lvoc.objective_mechanism.output_ports[pnl.OUTCOME].value)
-        print("WEIGHTS = ", lvoc.agent_rep.parameters.regression_weights.get(i))
+        print("WEIGHTS = ", lvoc.model.parameters.regression_weights.get(i))
         print("LVOC VALUE = ", lvoc.value)
     # duration = timeit.timeit(c.run(inputs=input_dict, context=i), number=1) #number=2
     c.run(inputs=input_dict,
           context=i,
           call_after_trial=print_weights) #number=2, num_trials
     # duration = time.time() - start_time
-    # print('PREDICTION WEIGHTS T2', lvoc.agent_rep.parameters.regression_weights.get(i))
-    # print("WEIGHTS = ", lvoc.agent_rep.parameters.regression_weights.get(i))
+    # print('PREDICTION WEIGHTS T2', lvoc.model.parameters.regression_weights.get(i))
+    # print("WEIGHTS = ", lvoc.model.parameters.regression_weights.get(i))
     # print("OUTCOME = ", lvoc.objective_mechanism.output_ports[pnl.OUTCOME].value)
     # print('LVOC Log\n')
     # print(lvoc.log.csv)

@@ -1288,7 +1288,7 @@ class TestAnalyzeGraph:
         A = ProcessingMechanism(name='A')
         B = ProcessingMechanism(name='B')
         comp.add_linear_processing_pathway([A, B])
-        comp.add_controller(controller=pnl.OptimizationControlMechanism(agent_rep=comp,
+        comp.add_controller(controller=pnl.OptimizationControlMechanism(model=comp,
                                                                         features=[A.input_port],
                                                                         objective_mechanism=pnl.ObjectiveMechanism(
                                                                                 function=pnl.LinearCombination(
@@ -1319,7 +1319,7 @@ class TestAnalyzeGraph:
         B = ProcessingMechanism(name='B')
         comp.add_linear_processing_pathway([A, B])
 
-        comp.add_controller(controller=pnl.OptimizationControlMechanism(agent_rep=comp,
+        comp.add_controller(controller=pnl.OptimizationControlMechanism(model=comp,
                                                                         features=[A.input_port],
                                                                         objective_mechanism=pnl.ObjectiveMechanism(
                                                                                 function=pnl.LinearCombination(
@@ -2735,7 +2735,7 @@ class TestRunInputSpecifications:
         if with_inner_controller:
             icomp.add_controller(
                     pnl.OptimizationControlMechanism(
-                            agent_rep=icomp,
+                            model=icomp,
                             features=[ia.input_port],
                             name="iController",
                             objective_mechanism=pnl.ObjectiveMechanism(
@@ -2762,7 +2762,7 @@ class TestRunInputSpecifications:
         if with_outer_controller:
             ocomp.add_controller(
                     pnl.OptimizationControlMechanism(
-                            agent_rep=ocomp,
+                            model=ocomp,
                             features=[ia.input_port],
                             name="oController",
                             objective_mechanism=pnl.ObjectiveMechanism(
@@ -4230,7 +4230,7 @@ class TestNestedCompositions:
 
         ocomp.add_controller(
             pnl.OptimizationControlMechanism(
-                agent_rep=ocomp,
+                model=ocomp,
                 features=[oa.input_port],
                 # feature_function=pnl.Buffer(history=2),
                 name="Controller",
@@ -4250,7 +4250,7 @@ class TestNestedCompositions:
 
         icomp.add_controller(
             pnl.OptimizationControlMechanism(
-                agent_rep=icomp,
+                model=icomp,
                 features=[ia.input_port],
                 # feature_function=pnl.Buffer(history=2),
                 name="Controller",
@@ -4709,7 +4709,7 @@ class TestNestedCompositions:
 
         c_lvl0.add_controller(OptimizationControlMechanism(
             name='c_top_controller',
-            agent_rep=c_lvl0,
+            model=c_lvl0,
             features=[c_lvl1.input_port],
             objective_mechanism=ObjectiveMechanism(monitor=[p_lvl3]),
             function=GridSearch(),
@@ -4729,7 +4729,7 @@ class TestNestedCompositions:
 
         c_lvl1.add_controller(OptimizationControlMechanism(
             name='c_lvl1_controller',
-            agent_rep=c_lvl1,
+            model=c_lvl1,
             features=[c_lvl2.input_port],
             objective_mechanism=ObjectiveMechanism(monitor=[p_lvl3]),
             function=GridSearch(),
@@ -4742,7 +4742,7 @@ class TestNestedCompositions:
 
         c_lvl0.add_controller(OptimizationControlMechanism(
             name='c_lvl0_controller',
-            agent_rep=c_lvl0,
+            model=c_lvl0,
             features=[c_lvl1.input_port],
             objective_mechanism=ObjectiveMechanism(monitor=[p_lvl3]),
             function=GridSearch(),
@@ -5565,7 +5565,7 @@ class TestInputSpecifications:
         if with_inner_controller:
             icomp.add_controller(
                     pnl.OptimizationControlMechanism(
-                            agent_rep=icomp,
+                            model=icomp,
                             features=[ia.input_port],
                             name="iController",
                             objective_mechanism=pnl.ObjectiveMechanism(
@@ -5592,7 +5592,7 @@ class TestInputSpecifications:
         if with_outer_controller:
             ocomp.add_controller(
                     pnl.OptimizationControlMechanism(
-                            agent_rep=ocomp,
+                            model=ocomp,
                             features=[ia.input_port],
                             name="oController",
                             objective_mechanism=pnl.ObjectiveMechanism(
@@ -6626,7 +6626,7 @@ class TestNodeRoles:
         comp.add_linear_processing_pathway([A, B])
         comp.add_controller(
             controller=pnl.OptimizationControlMechanism(
-                agent_rep=comp,
+                model=comp,
                 features=[A.input_port],
                 objective_mechanism=pnl.ObjectiveMechanism(
                     function=pnl.LinearCombination(

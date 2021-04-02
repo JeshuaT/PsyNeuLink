@@ -175,7 +175,7 @@ objective_mech = pnl.ObjectiveMechanism(monitor=[inputLayer, stimulusInfo,
                                         function=computeAccuracy
                                         )
 
-meta_controller = pnl.OptimizationControlMechanism(agent_rep=stabilityFlexibility,
+meta_controller = pnl.OptimizationControlMechanism(model=stabilityFlexibility,
                                                    features=[inputLayer.input_port, stimulusInfo.input_port],
                                                    feature_function=pnl.Buffer(history=3),
                                                    objective_mechanism=objective_mech,

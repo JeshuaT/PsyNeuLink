@@ -30,7 +30,7 @@ class TestReport():
         # add controller to inner comp
         icomp.add_controller(
                 pnl.OptimizationControlMechanism(
-                        agent_rep=icomp,
+                        model=icomp,
                         features=[ia.input_port],
                         name="iController",
                         objective_mechanism=pnl.ObjectiveMechanism(
@@ -58,7 +58,7 @@ class TestReport():
         # add controller to outer comp
         ocomp.add_controller(
                 pnl.OptimizationControlMechanism(
-                        agent_rep=ocomp,
+                        model=ocomp,
                         # features=[ia.input_port],
                         features=[ocomp.input_CIM.output_ports[0]],
                         name="oController",
@@ -281,7 +281,7 @@ class TestReport():
         # add controller to inner comp
         icomp.add_controller(
                 pnl.OptimizationControlMechanism(
-                        agent_rep=icomp,
+                        model=icomp,
                         features=[ia.input_port],
                         name="iController",
                         objective_mechanism=pnl.ObjectiveMechanism(
@@ -309,7 +309,7 @@ class TestReport():
         # add controller to outer comp
         ocomp.add_controller(
                 pnl.OptimizationControlMechanism(
-                        agent_rep=ocomp,
+                        model=ocomp,
                         # features=[ia.input_port],
                         features=[ocomp.input_CIM.output_ports[0]],
                         name="oController",

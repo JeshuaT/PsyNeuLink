@@ -148,7 +148,7 @@ def objective_function(variable):
     return 1 - d
 
 ocm = OptimizationControlMechanism(features={SHADOW_INPUTS:[player_percept, predator_percept, prey_percept]},
-                                   agent_rep=agent_comp, # Use Composition itself (i.e., fully "model-based" evaluation)
+                                   model=agent_comp, # Use Composition itself (i.e., fully "model-based" evaluation)
                                    function=GridSearch(direction=MAXIMIZE, save_values=True),
                                    objective_mechanism=ObjectiveMechanism(function=objective_function,
                                                                           monitor=[{SHADOW_INPUTS:[player_percept,

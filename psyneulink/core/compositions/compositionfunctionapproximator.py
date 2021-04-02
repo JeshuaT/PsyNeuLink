@@ -64,7 +64,7 @@ class CompositionFunctionApproximatorError(Exception):
 
 
 class CompositionFunctionApproximator(Composition):
-    """Subclass of `Composition` that implements a FunctionApproximator as the `agent_rep
+    """Subclass of `Composition` that implements a FunctionApproximator as the `model
     <OptimizationControlmechanism.agent>` of an `OptimizationControlmechanism`.
 
     Parameterizes `its function <CompositionFunctionApproximator.function>` to predict a `net_outcome

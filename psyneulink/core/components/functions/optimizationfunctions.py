@@ -1382,9 +1382,9 @@ class GridSearch(OptimizationFunction):
         if ocm is not None:
             # self.objective_function may be a bound method of
             # OptimizationControlMechanism
-            extra_args = [ctx.get_param_struct_type(ocm.agent_rep).as_pointer(),
-                          ctx.get_state_struct_type(ocm.agent_rep).as_pointer(),
-                          ctx.get_data_struct_type(ocm.agent_rep).as_pointer()]
+            extra_args = [ctx.get_param_struct_type(ocm.model).as_pointer(),
+                          ctx.get_state_struct_type(ocm.model).as_pointer(),
+                          ctx.get_data_struct_type(ocm.model).as_pointer()]
         else:
             extra_args = []
 
@@ -1600,13 +1600,13 @@ class GridSearch(OptimizationFunction):
         return builder
 
     def _run_grid(self, ocm, variable, context):
-        assert ocm is ocm.agent_rep.controller
+        assert ocm is ocm.model.controller
         # Compiled evaluate expects the same variable as mech function
         new_variable = [ip.parameters.value.get(context) for ip in ocm.input_ports]
         num_evals = np.prod([d.num for d in self.search_space])
 
         # Map allocations to values
-        comp_exec = pnlvm.execution.CompExecution(ocm.agent_rep, [context.execution_id])
+        comp_exec = pnlvm.execution.CompExecution(ocm.model, [context.execution_id])
         variant = ocm.parameters.comp_execution_mode._get(context)
         if variant == "PTX":
             ct_values = comp_exec.cuda_evaluate(new_variable, num_evals)
@@ -2103,7 +2103,7 @@ class GaussianProcess(OptimizationFunction):
         #   This method is assigned as the search function of GaussianProcess,
         #     and should return a sample that will be evaluated in the call to GaussianProcess' `objective_function`
         #     (in the context of use with an OptimizationControlMechanism, a sample is a control_allocation,
-        #     and the objective_function is the evaluate method of the agent_rep).
+        #     and the objective_function is the evaluate method of the model).
         #   You have accessible:
         #     variable arg:  the last sample evaluated
         #     sample_num:  number of current iteration in the search/sampling process
@@ -2437,11 +2437,11 @@ class ParamEstimationFunction(OptimizationFunction):
             # Create the simulator, specifying the priors in proper order as arguments
             Y = elfi.Simulator(self._sim_func, *elfi_priors, observed=self._observed)
 
-            agent_rep_node = elfi.Constant(self.owner.agent_rep)
+            model_node = elfi.Constant(self.owner.model)
 
             # FIXME: This is a hack, we need to figure out a way to elegantly pass these
             # Create the summary nodes
-            summary_nodes = [elfi.Summary(args[0], agent_rep_node, Y, *args[1:])
+            summary_nodes = [elfi.Summary(args[0], model_node, Y, *args[1:])
                              for args in self._summary]
 
             # Create the discrepancy node.

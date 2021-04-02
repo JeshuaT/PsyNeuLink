@@ -667,9 +667,9 @@ class CompExecution(CUDAExecution):
         # all but #4 are shared
 
         # Directly initialized structures
-        ct_comp_param = bin_func.byref_arg_types[0](*ocm.agent_rep._get_param_initializer(context))
-        ct_comp_state = bin_func.byref_arg_types[1](*ocm.agent_rep._get_state_initializer(context))
-        ct_comp_data = bin_func.byref_arg_types[6](*ocm.agent_rep._get_data_initializer(context))
+        ct_comp_param = bin_func.byref_arg_types[0](*ocm.model._get_param_initializer(context))
+        ct_comp_state = bin_func.byref_arg_types[1](*ocm.model._get_state_initializer(context))
+        ct_comp_data = bin_func.byref_arg_types[6](*ocm.model._get_data_initializer(context))
 
         # Construct input variable
         var_dty = _element_dtype(bin_func.byref_arg_types[5])

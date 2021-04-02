@@ -157,7 +157,7 @@ class RegressionCFA(CompositionFunctionApproximator):
         prediction_terms=[PV.F, PV.C, PV.COST])
 
     Subclass of `CompositionFunctionApproximator` that implements a CompositionFunctionApproximator as the
-    `agent_rep <OptimizationControlmechanism.agent>` of an `OptimizationControlmechanism`.
+    `model <OptimizationControlmechanism.agent>` of an `OptimizationControlmechanism`.
 
     See `CompositionFunctionApproximator <CompositionFunctionApproximator_Class_Reference>` for additional arguments
     and attributes.

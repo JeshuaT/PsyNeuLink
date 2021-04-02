@@ -101,7 +101,7 @@ else:
 
 
 ocm = OptimizationControlMechanism(features={SHADOW_INPUTS:[player_input, predator_input, prey_input]},
-                                   agent_rep=agent_comp,
+                                   model=agent_comp,
                                    function=GridSearch(direction=MAXIMIZE,
                                                        save_values=True),
                                    objective_mechanism=ObjectiveMechanism(

@@ -71,7 +71,7 @@ def test_moving_average(mode):
     # time series. We will use this function to compute the summary statistics
     # for generated and observed data so that we can compute a metric between the
     # two. In PsyNeuLink terms, this will be part of an ObjectiveMechanism.
-    def autocov(agent_rep, x=None, lag=1):
+    def autocov(model, x=None, lag=1):
         if x is None:
             return np.asarray(0.0)
 
@@ -92,7 +92,7 @@ def test_moving_average(mode):
     if mode == 'elfi':
         comp.add_controller(
             controller=OptimizationControlMechanism(
-                agent_rep=comp,
+                model=comp,
                 function=ParamEstimationFunction(
                     priors={'t1': (scipy.stats.uniform, 0, 2),
                             't2': (scipy.stats.uniform, 0, 2)},
@@ -116,7 +116,7 @@ def test_moving_average(mode):
                                             name='autocov - observed autocov')
         comp.add_controller(
             controller=OptimizationControlMechanism(
-                agent_rep=comp,
+                model=comp,
                 function=GridSearch(save_values=True, direction=MINIMIZE),
                 objective_mechanism=objective_mech,
                 control_signals=[t1_control_signal, t2_control_signal]))

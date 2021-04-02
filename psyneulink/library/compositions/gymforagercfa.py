@@ -101,7 +101,7 @@ class GymForagerCFA(RegressionCFA):
         prediction_terms=None)
 
     Subclass of `RegressionCFA` that implements a CompositionFunctionApproximator as the
-    `agent_rep <OptimizationControlmechanism.agent>` of an `OptimizationControlmechanism`.
+    `model <OptimizationControlmechanism.agent>` of an `OptimizationControlmechanism`.
 
     See `RegressionCFA <rRegressionCFA_Class_Reference>` for arguments and attributes.
 
