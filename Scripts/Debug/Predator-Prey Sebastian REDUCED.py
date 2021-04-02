@@ -27,7 +27,7 @@ def get_new_episode_flag():
     return new_episode_flag
 
 CONTROLLER_CONDITION = Condition(func=get_new_episode_flag) # tells schedule when to run OCM
-FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
+STATE_FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
 
 # **********************************************************************************************************************
 # **************************************  CREATE COMPOSITION ***********************************************************
@@ -61,8 +61,8 @@ agent_comp.add_node(action_mech, required_roles=[NodeRole.OUTPUT])
 # **************************************  CONOTROL APPARATUS ***********************************************************
 
 ocm = OptimizationControlMechanism(name='EVC',
-                                   features=[trial_type_input_mech],
-                                   # feature_function=FEATURE_FUNCTION,
+                                   state=[trial_type_input_mech],
+                                   # state_feature_function=STATE_FEATURE_FUNCTION,
                                    model=RegressionCFA(
                                            name='RegressionCFA',
                                            update_weights=BayesGLM(mu_0=0.5, sigma_0=0.1),

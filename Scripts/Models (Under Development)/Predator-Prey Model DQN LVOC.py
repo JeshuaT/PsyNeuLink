@@ -38,8 +38,8 @@ def get_new_episode_flag():
     return new_episode_flag
 
 CONTROLLER_CONDITION = Condition(func=get_new_episode_flag)
-# FEATURE_FUNCTION = Buffer(history=3)
-FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
+# STATE_FEATURE_FUNCTION = Buffer(history=3)
+STATE_FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
 
 
 # Environment coordinates
@@ -160,8 +160,8 @@ agent_comp.add_projections([a,b,c])
 # **************************************  CONOTROL APPARATUS ***********************************************************
 
 ocm = OptimizationControlMechanism(name='EVC',
-                                   features=trial_type_input_mech,
-                                   feature_function=FEATURE_FUNCTION,
+                                   state=trial_type_input_mech,
+                                   state_feature_function=STATE_FEATURE_FUNCTION,
                                    model=RegressionCFA(
                                            update_weights=BayesGLM(mu_0=0.5, sigma_0=0.1),
                                            prediction_terms=[PV.F, PV.C, PV.COST]

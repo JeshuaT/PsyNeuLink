@@ -53,8 +53,8 @@ ALLOCATION_SAMPLES_PREY = [0, 100, 200, 300, 400, 500] # [0, 500]
 ALLOCATION_SAMPLES_PREDATOR = [0, 100, 200, 300, 400, 500] # [0, 500]
 ALLOCATION_SAMPLES_PLAYER = [0]
 
-# FEATURE_FUNCTION = Buffer(history=3)
-FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
+# STATE_FEATURE_FUNCTION = Buffer(history=3)
+STATE_FEATURE_FUNCTION = AdaptiveIntegrator(rate=0.5)
 
 # Environment coordinates
 # (these should probably be replaced by reference to ForagerEnv constants)
@@ -194,17 +194,17 @@ class PredatorPreySimulator:
 
         # **************************************  CONOTROL APPARATUS ***********************************************************
         self.ocm = OptimizationControlMechanism(name='EVC',
-                       features=[self.prey_pred_trial_input_mech, self.single_prey_trial_input_mech, self.double_prey_trial_input_mech],
-                       # feature_function=FEATURE_FUNCTION,
-                       model=RegressionCFA(
+                                                state=[self.prey_pred_trial_input_mech, self.single_prey_trial_input_mech, self.double_prey_trial_input_mech],
+                                                # state_feature_function=STATE_FEATURE_FUNCTION,
+                                                model=RegressionCFA(
                                update_weights=BayesGLM(mu_0=-0.0, sigma_0=0.0001),
                                prediction_terms=[PV.F, PV.C, PV.COST]
                        ),
-                       function=GridSearch(direction=MAXIMIZE, save_values=True),
+                                                function=GridSearch(direction=MAXIMIZE, save_values=True),
 
-                       objective_mechanism=ObjectiveMechanism(name='OBJECTIVE MECHANISM',
+                                                objective_mechanism=ObjectiveMechanism(name='OBJECTIVE MECHANISM',
                                                               monitor=[self.reward_input_mech]),
-                       control_signals=[ControlSignal(projections=(VARIANCE,self.player_percept),
+                                                control_signals=[ControlSignal(projections=(VARIANCE,self.player_percept),
                                                       allocation_samples=ALLOCATION_SAMPLES_PLAYER,
                                                       intensity_cost_function=Exponential(rate=COST_RATE,
                                                                                           bias=COST_BIAS)),
